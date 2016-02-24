@@ -1,0 +1,156 @@
+{% block blog_list_posts %}
+{% for child in collection %}
+{% set blog = page %}
+{% set truncate = true %}
+{% set page = child %}
+<div class="mdl-blog-list-item card">
+    {{ block('blog_post_layout') }}
+    <div class="card-action">
+        {{ block('post_header_taxonomy') }}
+        {{ block('post_readmore') }}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block blog_single_post %}
+{% set blog = page.parent %}
+{% set truncate = false %}
+<div class="mdl-blog-item card">
+    {{ block('blog_post_layout') }}
+    <div class="card-action">
+        {{ block('post_header_taxonomy') }}
+        {{ block('post_navigation') }}
+    </div>
+</div>
+{% endblock %}
+
+{% block blog_post_layout %}
+{% set header_image = page.header.header_image|defined(true) %}
+{% set header_image_width  = page.header.header_image_width|defined(900) %}
+{% set header_image_height = page.header.header_image_height|defined(300) %}
+{% set header_image_file = page.header.header_image_file %}
+{% if header_image %}
+{% if header_image_file %}
+{% set header_image_media = page.media.images[header_image_file] %}
+{% else %}
+{% set header_image_media = page.media.images|first %}
+{% endif %}
+{% endif %}
+{% if header_image_media %}
+<div class="card-image">
+    {{ header_image_media.cropZoom(header_image_width, header_image_height).html }}
+    {{ block('post_header_title') }}
+</div>
+<div class="card-content">
+    {{ block('post_header_nicetime') }}
+    {{ block('post_content') }}
+</div>
+{% else %}
+<div class="card-content">
+    {{ block('post_header_title') }}
+    {{ block('post_header_nicetime') }}
+    {{ block('post_content') }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block post_content %}
+{% if truncate and page.header.summary.enabled  %}
+{% if page.summary != page.content %}
+{{ page.summary }}
+{% else %}
+{{ page.content|truncate(550) }}
+{% endif %}
+{% else %}
+{{ page.content }}
+{% endif %}
+{% endblock %}
+
+{% block post_navigation %}
+<div class="prev-next row">
+    {% if not page.isFirst %}
+    <div class="col s6 left-align">
+        <a class="waves-effect btn-flat" href="{{ page.nextSibling.url }}">
+            <i class="material-icons left">chevron_left</i>
+            Next Post</a>
+    </div>
+    {% endif %}
+    {% if not page.isLast %}
+    <div class="col s6 right-align">
+        <a class="waves-effect btn-flat" href="{{ page.prevSibling.url }}">Previous Post
+            <i class="material-icons right">chevron_right</i>
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block post_readmore %}
+<div class="mtl-readmore section">
+    <a class="waves-effect waves-light btn" href="{{ page.url }}">Read more...</a>
+</div>
+{% endblock %}
+
+{% block post_header_title %}
+{% if page.header.link %}
+<span class="card-title">
+    {% if page.header.continue_link is not sameas(false) %}
+    <h3>
+        <a href="{{ page.url }}">
+            <i class="material-icons">link</i>
+        </a>
+    </h3>
+    {% endif %}
+    <h3>
+        <a href="{{ page.header.link }}">{{ page.title }}</a>
+    </h3>
+</span>
+{% else %}
+<span class="card-title">
+    <h3>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+    </h3>
+</span>
+{% endif %}
+{% endblock %}
+
+{% block post_header_date %}
+<span class="list-blog-date">
+    <span>{{ page.date|date("d") }}</span>
+    <em>{{ page.date|date("M") }}</em>
+</span>
+{% endblock %}
+
+{% block post_header_nicetime %}
+<span class="list-blog-date">
+    <span>{{ page.date|nicetime(false) }}</span>
+</span>
+{% endblock %}
+
+{% block post_header_taxonomy %}
+{% if page.taxonomy.tag %}
+<div class="mtl-taxonomy-tags section">
+    {% for tag in page.taxonomy.tag %}
+    <a href="{{ blog.url|rtrim('/') }}/tag{{ config.system.param_sep }}{{ tag }}">
+        <span class="chip">{{ tag }}</span>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block post_header_image %}
+{% set header_image = page.header.header_image|defined(true) %}
+{% set header_image_width  = page.header.header_image_width|defined(900) %}
+{% set header_image_height = page.header.header_image_height|defined(300) %}
+{% set header_image_file = page.header.header_image_file %}
+{% if header_image %}
+{% if header_image_file %}
+{% set header_image_media = page.media.images[header_image_file] %}
+{% else %}
+{% set header_image_media = page.media.images|first %}
+{% endif %}
+{{ header_image_media.cropZoom(header_image_width, header_image_height).html }}
+{% endif %}
+{% endblock %}

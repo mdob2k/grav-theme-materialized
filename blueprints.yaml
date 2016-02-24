@@ -1,0 +1,13 @@
+name: Materialized
+version: 1.0.0
+description: "A Grav theme based on the Materialize framework."
+icon: google
+author:
+  name: mdob2k
+  email: mail@md2k.de
+  url: http://md2k.de
+homepage: https://github.com/mdob2k/grav-theme-materialized
+demo: http://md2k.de
+keywords: materialize, material design, theme
+bugs: https://github.com/mdob2k/grav-theme-materialized/issues
+license: MIT

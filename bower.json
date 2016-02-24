@@ -1,0 +1,25 @@
+{
+  "name": "materialized",
+  "description": "A Grav theme based on the Materialize framework.",
+  "main": "index.js",
+  "authors": [
+    "mdob"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "grav",
+    "materialize"
+  ],
+  "homepage": "https://github.com/mdob2k/grav-theme-materialized",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "Materialize": "materialize#~0.97.5"
+  }
+}

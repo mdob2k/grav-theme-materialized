@@ -1,0 +1,102 @@
+{% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+<!DOCTYPE html>
+<html lang="{{ grav.language.getActive ?: theme_config.default_lang }}">
+    <head>
+        {% block head %}
+        <meta charset="utf-8"/>
+        <title>{% if header.title %}{{ header.title|e('html') }}
+            |
+            {% endif %}{{ site.title|e('html') }}</title>
+        {% include 'partials/metadata.html.twig' %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png', true) }}"/>
+        <link rel="canonical" href="{{ page.url(true, true) }}"/>
+        {% block stylesheets %}
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        {% do assets.addCss('theme://css/materialized.min.css', 103) %}
+        {% endblock %}
+        {{ assets.css() }}
+        {% block javascripts %}
+        {% do assets.addJs('theme://js/jquery.min.js', {'priority': 103, 'loading': 'defer', 'group': 'bottom'}) %}
+        {% do assets.addJs('theme://js/materialize.min.js', {'priority': 102, 'loading': 'defer', 'group': 'bottom'}) %}
+        {% endblock %}
+        {{ assets.js() }}
+        {% endblock head%}
+    </head>
+    <body id="mtl-top" class="{{ page.header.body_classes }}">
+        {% block header %}
+        <nav class="mtl-nav" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" class="brand-logo" href="{{ base_url == '' ? '/' : base_url }}">{{ config.site.title }}</a>
+                <a href="#" data-activates="mobile-nav" class="button-collapse">
+                    <i class="material-icons">menu</i>
+                </a>
+                {% block header_navigation %}
+                {% include 'partials/navigation.html.twig' with {'navclass': 'right hide-on-med-and-down'} %}
+                {% include 'partials/navigation.html.twig' with {'navclass': 'side-nav', 'navid': 'mobile-nav'} %}
+                {% endblock %}
+            </div>
+        </nav>
+        {% block header_extra %}{% endblock %}
+        {% if config.plugins.langswitcher.enabled %}
+        {% include 'partials/langswitcher.html.twig' %}
+        {% endif %}
+        {% endblock %}
+        {% block showcase %}{% endblock %}
+        {% block body %}
+        <div class="container">
+            <div class="section mtl-main">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        {% endblock %}
+        {% block footer %}
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Footer Content</h5>
+                        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li>
+                                <a class="grey-text text-lighten-3" href="#!">Link 1</a>
+                            </li>
+                            <li>
+                                <a class="grey-text text-lighten-3" href="#!">Link 2</a>
+                            </li>
+                            <li>
+                                <a class="grey-text text-lighten-3" href="#!">Link 3</a>
+                            </li>
+                            <li>
+                                <a class="grey-text text-lighten-3" href="#!">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    &copy;
+                    {{ now|date('Y') }}
+                    {{ config.site.author.name }}
+                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                </div>
+            </div>
+        </footer>
+        {% endblock %}
+        {% block bottom %}
+        {{ assets.js('bottom') }}
+        <script>
+            (function($) {
+                $(function() {
+                    $('.button-collapse').sideNav();
+                }); // end of document ready
+            })(jQuery); // end of jQuery name space
+        </script>
+        {% endblock %}
+    </body>
+</html>

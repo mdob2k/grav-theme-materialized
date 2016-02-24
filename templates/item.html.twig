@@ -1,0 +1,11 @@
+{% embed 'partials/base.html.twig' %}
+{% use 'partials/blog_modules.html.twig' %}
+{% block content %}
+<div class="mdl-blog-post row">
+    {% if config.plugins.breadcrumbs.enabled %}
+    {% include 'partials/breadcrumbs.html.twig' %}
+    {% endif %}
+    {{ block('blog_single_post') }}
+</div>
+{% endblock %}
+{% endembed %}
