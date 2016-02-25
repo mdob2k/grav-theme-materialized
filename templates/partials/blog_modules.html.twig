@@ -87,9 +87,11 @@
 {% endblock %}
 
 {% block post_readmore %}
+{% if page.summary != page.content %}
 <div class="mtl-readmore section">
     <a class="waves-effect waves-light btn" href="{{ page.url }}">Read more...</a>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block post_header_title %}
