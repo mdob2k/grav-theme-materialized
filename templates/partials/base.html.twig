@@ -14,6 +14,8 @@
         {% block stylesheets %}
         <!--Import Google Icon Font-->
         <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Import Font Awesome -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
         {% do assets.addCss('theme://css/materialized.min.css', 103) %}
         {% endblock %}
         {{ assets.css() }}
@@ -65,18 +67,11 @@
                     <div class="col l4 offset-l2 s12">
                         <h5 class="white-text">Links</h5>
                         <ul>
+                            {% for item in site.links %}
                             <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 1</a>
+                                <a class="grey-text text-lighten-3" href="{{ item.url }}">{% if item.icon %}<i class="fa fa-{{ item.icon }} fa-fw"></i>&nbsp; {% endif %}{{ item.text }}</a>
                             </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 2</a>
-                            </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 4</a>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
