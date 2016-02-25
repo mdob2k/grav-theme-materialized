@@ -31,3 +31,19 @@ form:
         size: large
         label: Tracking Code
         help: "Insert your tracking code (Google Analytics, Piwik etc.)"
+    linksection:
+        type: section
+        title: Links
+    linklist:
+        type: list
+        label: Link list
+        fields:
+            .text:
+                type: text
+                label: Text
+            .url:
+                type: text
+                label: URL
+            .icon:
+                type: text
+                label: Icon

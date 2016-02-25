@@ -67,7 +67,7 @@
                     <div class="col l4 offset-l2 s12">
                         <h5 class="white-text">Links</h5>
                         <ul>
-                            {% for item in site.links %}
+                            {% for item in config.themes.materialized.linklist %}
                             <li>
                                 <a class="grey-text text-lighten-3" href="{{ item.url }}">{% if item.icon %}<i class="fa fa-{{ item.icon }} fa-fw"></i>&nbsp; {% endif %}{{ item.text }}</a>
                             </li>
