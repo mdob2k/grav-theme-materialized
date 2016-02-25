@@ -11,3 +11,23 @@ demo: http://md2k.de
 keywords: materialize, material design, theme
 bugs: https://github.com/mdob2k/grav-theme-materialized/issues
 license: MIT
+
+form:
+  validation: loose
+  fields:
+    tracking.enabled:
+      type: toggle
+      label: Tracking
+      help: "Tracking enabled or disabled"
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    tracking.code:
+        type: textarea
+        size: large
+        label: Tracking Code
+        help: "Insert your tracking code (Google Analytics, Piwik etc.)"

@@ -13,7 +13,7 @@
         <link rel="canonical" href="{{ page.url(true, true) }}"/>
         {% block stylesheets %}
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         {% do assets.addCss('theme://css/materialized.min.css', 103) %}
         {% endblock %}
         {{ assets.css() }}
@@ -23,6 +23,9 @@
         {% endblock %}
         {{ assets.js() }}
         {% endblock head%}
+        {% if config.themes.mdlite.tracking.enabled %}
+        {{ config.themes.mdlite.tracking.code }}
+        {% endif %}
     </head>
     <body id="mtl-top" class="{{ page.header.body_classes }}">
         {% block header %}
@@ -56,8 +59,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
-                        <h5 class="white-text">Footer Content</h5>
-                        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                        <h5 class="white-text">{{ config.site.title }}</h5>
+                        <p class="grey-text text-lighten-4"></p>
                     </div>
                     <div class="col l4 offset-l2 s12">
                         <h5 class="white-text">Links</h5>
@@ -83,7 +86,6 @@
                     &copy;
                     {{ now|date('Y') }}
                     {{ config.site.author.name }}
-                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
                 </div>
             </div>
         </footer>
