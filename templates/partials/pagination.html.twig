@@ -1,53 +1,53 @@
-{% if pagination|length > 1 %}
+{% if pagination | length > 1 %}
 
-<ul class="pagination">
-    {% if pagination.hasPrev %}
-    {% set url =  (base_url ~ pagination.params ~ pagination.prevUrl)|replace({'//':'/'}) %}
-    <li class="waves-effect">
-        <a rel="prev" href="{{ url }}">
-            <i class="material-icons">chevron_left</i>
-        </a>
-    </li>
-{% else %}
-    <li class="disabled waves-effect">
-        <a rel="prev" href="#!">
-            <i class="material-icons">chevron_left</i>
-        </a>
-    </li>
-    {% endif %}
+    <ul class="pagination">
+        {% if pagination.hasPrev %}
+            {% set url = (base_url ~ pagination.params ~ pagination.prevUrl) | replace({'//': '/'}) %}
+            <li class="waves-effect">
+                <a rel="prev" href="{{ url }}">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </li>
+        {% else %}
+            <li class="disabled waves-effect">
+                <a rel="prev" href="#!">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </li>
+        {% endif %}
 
-    {% for paginate in pagination %}
+        {% for paginate in pagination %}
 
-    {% if paginate.isCurrent %}
-    <li class="active waves-effect">
-        <span>{{ paginate.number }}</span>
-    </li>
-{% elseif paginate.isInDelta %}
-    {% set url =  (base_url ~ pagination.params ~ paginate.url)|replace({'//':'/'}) %}
-    <li class="waves-effect">
-        <a href="{{ url }}">{{ paginate.number }}</a>
-    </li>
-{% elseif paginate.isDeltaBorder %}
-    <li class="waves-effect gap">
-        <span>&hellip;</span>
-    </li>
-    {% endif %}
+            {% if paginate.isCurrent %}
+                <li class="active waves-effect white-text">
+                    <span>{{ paginate.number }}</span>
+                </li>
+            {% elseif paginate.isInDelta %}
+                {% set url = (base_url ~ pagination.params ~ paginate.url) | replace({'//': '/'}) %}
+                <li class="waves-effect">
+                    <a href="{{ url }}">{{ paginate.number }}</a>
+                </li>
+            {% elseif paginate.isDeltaBorder %}
+                <li class="waves-effect gap">
+                    <span>&hellip;</span>
+                </li>
+            {% endif %}
 
-    {% endfor %}
-    {% if pagination.hasNext %}
-    {% set url =  (base_url ~ pagination.params ~ pagination.nextUrl)|replace({'//':'/'}) %}
-    <li class="waves-effect">
-        <a rel="prev" href="{{ url }}">
-            <i class="material-icons">chevron_right</i>
-        </a>
-    </li>
-{% else %}
-    <li class="disabled waves-effect">
-        <a rel="prev" href="#!">
-            <i class="material-icons">chevron_right</i>
-        </a>
-    </li>
-    {% endif %}
-</ul>
+        {% endfor %}
+        {% if pagination.hasNext %}
+            {% set url = (base_url ~ pagination.params ~ pagination.nextUrl) | replace({'//': '/'}) %}
+            <li class="waves-effect">
+                <a rel="prev" href="{{ url }}">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </li>
+        {% else %}
+            <li class="disabled waves-effect">
+                <a rel="prev" href="#!">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
 
 {% endif %}

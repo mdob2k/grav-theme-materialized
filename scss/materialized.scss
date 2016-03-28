@@ -1,8 +1,5 @@
 // import colors first
-@import "../bower_components/Materialize/sass/components/_color.scss";
-// import custom Variables
-@import "./_variables.scss";
-// import Materialize
-@import "../bower_components/Materialize/sass/materialize.scss";
-// import theme
+@import "../bower_components/Materialize/sass/components/_color.scss"; // import custom Variables
+@import "./_variables.scss"; // import Materialize
+@import "../bower_components/Materialize/sass/materialize.scss"; // import theme
 @import "./_theme.scss";

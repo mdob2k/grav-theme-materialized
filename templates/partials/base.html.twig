@@ -3,91 +3,111 @@
 <html lang="{{ grav.language.getActive ?: theme_config.default_lang }}">
     <head>
         {% block head %}
-        <meta charset="utf-8"/>
-        <title>{% if header.title %}{{ header.title|e('html') }}
-            |
-            {% endif %}{{ site.title|e('html') }}</title>
-        {% include 'partials/metadata.html.twig' %}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png', true) }}"/>
-        <link rel="canonical" href="{{ page.url(true, true) }}"/>
-        {% block stylesheets %}
-        <!--Import Google Icon Font-->
-        <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- Import Font Awesome -->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-        {% do assets.addCss('theme://css/materialized.min.css', 103) %}
-        {% endblock %}
-        {{ assets.css() }}
-        {% block javascripts %}
-        {% do assets.addJs('theme://js/jquery.min.js', {'priority': 103, 'loading': 'defer', 'group': 'bottom'}) %}
-        {% do assets.addJs('theme://js/materialize.min.js', {'priority': 102, 'loading': 'defer', 'group': 'bottom'}) %}
-        {% do assets.addJs('theme://js/theme.js', {'priority': 101, 'loading': 'defer', 'group': 'bottom'}) %}
-        {% endblock %}
-        {{ assets.js() }}
+            <meta charset="utf-8"/>
+            <title>
+                {% if header.title %}{{ header.title|e('html') }}
+                    |
+                {% endif %}{{ site.title|e('html') }}</title>
+            {% include 'partials/metadata.html.twig' %}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png', true) }}"/>
+            <link rel="canonical" href="{{ page.url(true, true) }}"/>
+            {% block stylesheets %}
+                <!--Import Google Icon Font-->
+                <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                <!-- Import Font Awesome -->
+                <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+                {% do
+                    assets.addCss('theme://css/materialized.min.css', 103) %}
+            {% endblock %}
+            {{ assets.css() }}
+            {% block javascripts %}
+                {% do
+                    assets.addJs('theme://js/jquery.min.js', {
+                        'priority': 103,
+                        'loading': 'defer',
+                        'group': 'bottom'
+                    }) %}
+                {% do
+                    assets.addJs('theme://js/materialize.min.js', {
+                        'priority': 102,
+                        'loading': 'defer',
+                        'group': 'bottom'
+                    }) %}
+                {% do
+                    assets.addJs('theme://js/theme.js', {
+                        'priority': 101,
+                        'loading': 'defer',
+                        'group': 'bottom'
+                    }) %}
+            {% endblock %}
+            {{ assets.js() }}
         {% endblock head%}
         {% if config.themes.materialized.tracking.enabled %}
-        {{ config.themes.materialized.tracking.code }}
+            {{ config.themes.materialized.tracking.code }}
         {% endif %}
     </head>
     <body id="mtl-top" class="{{ page.header.body_classes }}">
         {% block header %}
-        <nav class="mtl-nav" role="navigation">
-            <div class="nav-wrapper container">
-                <a id="logo-container" class="brand-logo" href="{{ base_url == '' ? '/' : base_url }}">{{ config.site.title }}</a>
-                <a href="#" data-activates="mobile-nav" class="button-collapse">
-                    <i class="material-icons">menu</i>
-                </a>
-                {% block header_navigation %}
-                {% include 'partials/navigation.html.twig' with {'navclass': 'right hide-on-med-and-down'} %}
-                {% include 'partials/navigation.html.twig' with {'navclass': 'side-nav', 'navid': 'mobile-nav'} %}
-                {% endblock %}
-            </div>
-        </nav>
-        {% block header_extra %}{% endblock %}
-        {% if config.plugins.langswitcher.enabled %}
-        {% include 'partials/langswitcher.html.twig' %}
-        {% endif %}
+            <nav class="mtl-nav" role="navigation">
+                <div class="nav-wrapper container">
+                    <a id="logo-container" class="brand-logo" href="{{ base_url == '' ? '/' : base_url }}">{{ config.site.title }}</a>
+                    <a href="#" data-activates="mobile-nav" class="button-collapse">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    {% block header_navigation %}
+                        {% include 'partials/navigation.html.twig' with {'navclass': 'right hide-on-med-and-down'} %}
+                        {% include 'partials/navigation.html.twig' with {'navclass': 'side-nav', 'navid': 'mobile-nav'} %}
+                    {% endblock %}
+                </div>
+            </nav>
+            {% block header_extra %}{% endblock %}
+            {% if config.plugins.langswitcher.enabled %}
+                {% include 'partials/langswitcher.html.twig' %}
+            {% endif %}
         {% endblock %}
         {% block showcase %}{% endblock %}
         {% block body %}
-        <div class="container">
-            <div class="section mtl-main">
-                {% block content %}{% endblock %}
+            <div class="container">
+                <div class="section mtl-main">
+                    {% block content %}{% endblock %}
+                </div>
             </div>
-        </div>
         {% endblock %}
         {% block footer %}
-        <footer class="page-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text">{{ config.site.title }}</h5>
-                        <p class="grey-text text-lighten-4"></p>
-                    </div>
-                    <div class="col l4 offset-l2 s12">
-                        <h5 class="white-text">Links</h5>
-                        <ul>
-                            {% for item in config.themes.materialized.linklist %}
-                            <li>
-                                <a class="grey-text text-lighten-3" href="{{ item.url }}">{% if item.icon %}<i class="fa fa-{{ item.icon }} fa-fw"></i>&nbsp; {% endif %}{{ item.text }}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright">
+            <footer class="page-footer">
                 <div class="container">
-                    &copy;
-                    {{ now|date('Y') }}
-                    {{ config.site.author.name }}
+                    <div class="row">
+                        <div class="col l6 s12">
+                            <h5 class="white-text">{{ config.site.title }}</h5>
+                            <p class="grey-text text-lighten-4"></p>
+                        </div>
+                        <div class="col l4 offset-l2 s12">
+                            <h5 class="white-text">Links</h5>
+                            <ul>
+                                {% for item in config.themes.materialized.linklist %}
+                                    <li>
+                                        <a class="grey-text text-lighten-3" href="{{ item.url }}">
+                                            {% if item.icon %}
+                                                <i class="fa fa-{{ item.icon }} fa-fw"></i>&nbsp;
+                                            {% endif %}{{ item.text }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </footer>
+                <div class="footer-copyright">
+                    <div class="container">
+                        &copy;
+                        {{ now|date('Y') }}
+                        {{ config.site.author.name }}
+                    </div>
+                </div>
+            </footer>
         {% endblock %}
         {% block bottom %}
-        {{ assets.js('bottom') }}
+            {{ assets.js('bottom') }}
         {% endblock %}
     </body>
 </html>
